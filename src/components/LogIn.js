@@ -12,12 +12,17 @@ export default function LogIn(props) {
     })
 
 
-    const handleChange = (e) => {
-        const inputValue = e.target.value
-    
-        setUserInfo({...userInfo, user: { userName: inputValue } })
+    const handleChange = (event) => {
 
+        const updatedUser = userInfo.user
+        const inputField = event.target.name
+        const inputValue = event.target.value
+        updatedUser[inputField] = inputValue
 
+        setUserInfo(prevUserInfo => ({
+            ...prevUserInfo,
+            user : updatedUser
+        }))
     }
 
     const handleSubmit = (e) => {
@@ -26,25 +31,21 @@ export default function LogIn(props) {
         setUserInfo({ redirect: true })
     }
 
-
-    if (userInfo.redirect) {    
-        console.log("sdafsdf")
-        return ( < Navigate to = "/userProfile" / > )
-        
+    if (userInfo.redirect) {
+        return  <Navigate to = "/userProfile" />
     }
 
-   
     return (
         <div>
-
+            {/*{userInfo.redirect && <Navigate to = "/userProfile" />}*/}
             <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="userName">User Name</label>
-                    <input type="text" name="userName" onChange={handleChange} value={userInfo.userName} />
+                    <input type="text" name="userName" onChange={handleChange} value={userInfo.user.userName} />
                 </div>
                 <div>
                     <label htmlFor="password">Password</label>
-                    <input type="password" name="password" />
+                    <input type="password" name="password" onChange={handleChange} value={userInfo.user.password}/>
                 </div>
                 <button>Log In</button>
             </form>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from './components/Home'
 import UserProfile from './components/UserProfile'
 import LogIn from './components/LogIn'
@@ -19,7 +19,7 @@ export default function App( props ) {
     return (
         <BrowserRouter>
             <Routes>
-                <Route exact path="/" element={<Home accountBalance={accountBalance} />} />
+                <Route exact path="/ttp-bankOfReact-assn9" element={<Home accountBalance={accountBalance} />} />
                 <Route exact path="/userProfile" element={<UserProfile userName={currentUser.userName} memberSince={currentUser.memberSince} />} />
                 <Route exact path="/login" element={<LogIn user={currentUser} mockLogIn={mockLogIn} />} />
             </Routes>

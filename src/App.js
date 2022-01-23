@@ -7,7 +7,7 @@ import Debits from './components/Debits'
 import Credits from './components/Credits'
 export default function App( props ) {
 
-    const [accountBalance, setAccountBalance] = React.useState( 14568.27 )
+    const [accountBalance, setAccountBalance] = React.useState( 500 )
     const [currentUser, setCurrentUser] = React.useState( {
         userName: 'bob_loblaw',
         memberSince: '08/23/99',

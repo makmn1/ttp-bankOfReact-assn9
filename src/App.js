@@ -4,6 +4,7 @@ import Home from './components/Home'
 import UserProfile from './components/UserProfile'
 import LogIn from './components/LogIn'
 import Debits from './components/Debits'
+import Credits from './components/Credits'
 export default function App( props ) {
 
     const [accountBalance, setAccountBalance] = React.useState( 14568.27 )
@@ -11,6 +12,12 @@ export default function App( props ) {
         userName: 'bob_loblaw',
         memberSince: '08/23/99',
     } )
+
+    const increaseBalance = (credit) => {
+        setAccountBalance(prevAccountBalance => {
+            return (prevAccountBalance + credit)
+        })
+    }
 
     const deductBalance = (debit) => {
         setAccountBalance(prevAccountBalance => {
@@ -31,6 +38,7 @@ export default function App( props ) {
                 <Route exact path="/userProfile" element={<UserProfile userName={currentUser.userName} memberSince={currentUser.memberSince} />} />
                 <Route exact path="/login" element={<LogIn user={currentUser} mockLogIn={mockLogIn} />} />
                 <Route exact path="/debits" element={<Debits accountBalance={accountBalance} deductBalance={deductBalance} />} />
+                <Route exact path="/credits" element={<Credits accountBalance={accountBalance} increaseBalance={increaseBalance} />} />
             </Routes>
         </BrowserRouter>
     );

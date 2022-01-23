@@ -8,6 +8,7 @@ export default function Home( props ) {
             <Link to="/userProfile">User Profile</Link>
             <Link to="/login">User Login</Link>
             <Link to="/debits">Your Debits</Link>
+            <Link to="/credits">Your Credits</Link>
             <AccountBalance accountBalance={props.accountBalance} />
             <img src="https://thefinanser.com/wp-content/uploads/2021/09/bank.jpeg" alt="bank" />
         </div>

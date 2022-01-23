@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/ttp-bankOfReact-assn9/static/css/main.5a2bfa2d.css",
-    "main.js": "/ttp-bankOfReact-assn9/static/js/main.d6e4d273.js",
+    "main.js": "/ttp-bankOfReact-assn9/static/js/main.22c6f43e.js",
     "index.html": "/ttp-bankOfReact-assn9/index.html",
     "main.5a2bfa2d.css.map": "/ttp-bankOfReact-assn9/static/css/main.5a2bfa2d.css.map",
-    "main.d6e4d273.js.map": "/ttp-bankOfReact-assn9/static/js/main.d6e4d273.js.map"
+    "main.22c6f43e.js.map": "/ttp-bankOfReact-assn9/static/js/main.22c6f43e.js.map"
   },
   "entrypoints": [
     "static/css/main.5a2bfa2d.css",
-    "static/js/main.d6e4d273.js"
+    "static/js/main.22c6f43e.js"
   ]
 }

@@ -1,11 +1,16 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import AccountBalance from "./AccountBalance";
+import { nanoid } from "nanoid"
 
 export default function Debits(props) {
 
     const [viewDebits, setViewDebits] = React.useState(false)
     const [viewAccountBalance, setViewAccountBalance] = React.useState(false)
+    const [addDebitFormElements, setAddDebitFormElements] = React.useState({
+        description: "",
+        amount: ""
+    })
     const [debits, setDebits] = React.useState([])
 
     React.useEffect(function() {
@@ -31,6 +36,25 @@ export default function Debits(props) {
         )
     })
 
+    function changeHandler(event) {
+        const id = nanoid()
+        const date = new Date().toISOString()
+        setAddDebitFormElements(prevAddDebitFormElements => ({
+            ...prevAddDebitFormElements,
+            [event.target.name] : event.target.value,
+            id,
+            date
+        }))
+    }
+
+    const addDebitHandler = (event) => {
+        event.preventDefault()
+        setDebits(prevDebits => {
+            return [addDebitFormElements, ...prevDebits]
+        })
+        props.deductBalance(addDebitFormElements.amount)
+    }
+
     function debitViewHandler() {
         setViewDebits(prevViewDebits => !prevViewDebits)
     }
@@ -44,15 +68,37 @@ export default function Debits(props) {
             <header className="debitsHeader">
                 <h1>DEBITS</h1>
                 <div className="debitButtons">
-                    <button onClick={debitViewHandler}>{viewDebits ? "Hide Debits" : "Show Debits"}</button>
-                    <button onClick={balanceViewHandler}>{viewAccountBalance ? "Hide Balance" : "Show Balance"}</button>
+                    <Link to="/ttp-bankOfReact-assn9" className="returnHome">Click here to return to your homepage</Link>
+                    <div className="toggleButtons">
+                        <button onClick={debitViewHandler}>{viewDebits ? "Hide Debits" : "Show Debits"}</button>
+                        <button onClick={balanceViewHandler}>{viewAccountBalance ? "Hide Balance" : "Show Balance"}</button>
+                    </div>
+
+                    <form className="addDebitForm" onSubmit={addDebitHandler}>
+                        <input
+                            placeholder="Debit Description"
+                            name="description"
+                            value={addDebitFormElements.description}
+                            onChange={changeHandler}
+                        />
+                        <input
+                            placeholder="Debit Amount"
+                            name="amount"
+                            value={addDebitFormElements.amount}
+                            onChange={changeHandler}
+                        />
+                        <button type="submit">Add Debit</button>
+                    </form>
                 </div>
             </header>
+
+
+
             <main>
                 {viewAccountBalance && <AccountBalance accountBalance={props.accountBalance} />}
                 {viewDebits && <h2 className="debitsTitle">Recent Transactions</h2> }
                 {viewDebits && debitElements}
-                <Link to="/ttp-bankOfReact-assn9" className="returnHome">Click here to return to your homepage</Link>
+
             </main>
         </div>
     )

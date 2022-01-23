@@ -12,6 +12,13 @@ export default function App( props ) {
         memberSince: '08/23/99',
     } )
 
+    const deductBalance = (debit) => {
+        setAccountBalance(prevAccountBalance => {
+            return (prevAccountBalance - debit)
+        })
+    }
+
+
     const mockLogIn =( logInInfo )=> {
         setCurrentUser( { ...currentUser, userName: logInInfo.userName } )
         console.log(currentUser)
@@ -23,7 +30,7 @@ export default function App( props ) {
                 <Route exact path="/ttp-bankOfReact-assn9" element={<Home accountBalance={accountBalance} />} />
                 <Route exact path="/userProfile" element={<UserProfile userName={currentUser.userName} memberSince={currentUser.memberSince} />} />
                 <Route exact path="/login" element={<LogIn user={currentUser} mockLogIn={mockLogIn} />} />
-                <Route exact path="/debits" element={<Debits accountBalance={accountBalance} />} />
+                <Route exact path="/debits" element={<Debits accountBalance={accountBalance} deductBalance={deductBalance} />} />
             </Routes>
         </BrowserRouter>
     );

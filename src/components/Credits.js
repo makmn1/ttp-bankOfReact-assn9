@@ -28,21 +28,27 @@ export default function Credits(props) {
     })
 
     function changeHandler(event) {
-        const id = nanoid()
-        const date = new Date().toISOString()
         setAddCreditFormElements(prevAddCreditFormElements => ({
             ...prevAddCreditFormElements,
-            [event.target.name] : event.target.value,
-            id,
-            date
+            [event.target.name] : event.target.value
         }))
     }
 
     const addCreditHandler = (event) => {
         event.preventDefault()
+
+        const id = nanoid()
+        const date = new Date().toISOString()
+        const newCredit = {
+            ...addCreditFormElements,
+            id,
+            date
+        }
+
         props.setCredits(prevCredits => {
-            return [addCreditFormElements, ...prevCredits]
+            return [newCredit, ...prevCredits]
         })
+
         props.increaseBalance(addCreditFormElements.amount)
     }
 

@@ -28,21 +28,27 @@ export default function Debits(props) {
     })
 
     function changeHandler(event) {
-        const id = nanoid()
-        const date = new Date().toISOString()
         setAddDebitFormElements(prevAddDebitFormElements => ({
             ...prevAddDebitFormElements,
-            [event.target.name] : event.target.value,
-            id,
-            date
+            [event.target.name] : event.target.value
         }))
     }
 
     const addDebitHandler = (event) => {
         event.preventDefault()
+
+        const id = nanoid()
+        const date = new Date().toISOString()
+        const newDebit = {
+            ...addDebitFormElements,
+            id,
+            date
+        }
+
         props.setDebits(prevDebits => {
-            return [addDebitFormElements, ...prevDebits]
+            return [newDebit, ...prevDebits]
         })
+
         props.deductBalance(addDebitFormElements.amount)
     }
 

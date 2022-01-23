@@ -92,13 +92,10 @@ export default function Debits(props) {
                 </div>
             </header>
 
-
-
             <main>
                 {viewAccountBalance && <AccountBalance accountBalance={props.accountBalance} />}
                 {viewDebits && <h2 className="debitsTitle">Recent Transactions</h2> }
                 {viewDebits && debitElements}
-
             </main>
         </div>
     )

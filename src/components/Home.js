@@ -7,6 +7,7 @@ export default function Home( props ) {
             <h1>Bank of React</h1>
             <Link to="/userProfile">User Profile</Link>
             <Link to="/login">User Login</Link>
+            <Link to="/debits">Your Debits</Link>
             <AccountBalance accountBalance={props.accountBalance} />
             <img src="https://thefinanser.com/wp-content/uploads/2021/09/bank.jpeg" alt="bank" />
         </div>

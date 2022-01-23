@@ -9,7 +9,7 @@ export default function UserProfile( props ) {
 
             <div>Username: {props.userName}</div>
             <div>Member Since: {props.memberSince}</div>
-            <Link to="/">Back to Home</Link>
+            <Link to="/ttp-bankOfReact-assn9">Back to Home</Link>
         </div>
     );
 }

@@ -1,11 +1,16 @@
 import React from "react"
 import AccountBalance from "./AccountBalance";
 import {Link} from "react-router-dom";
-
+import {nanoid} from "nanoid";
 
 export default function Credits(props) {
+
     const [viewCredits, setViewCredits] = React.useState(false)
     const [viewAccountBalance, setViewAccountBalance] = React.useState(false)
+    const [addCreditFormElements, setAddCreditFormElements] = React.useState({
+        description: "",
+        amount: ""
+    })
     const [credits, setCredits] = React.useState([])
 
     React.useEffect(function() {
@@ -31,25 +36,61 @@ export default function Credits(props) {
         )
     })
 
+    function changeHandler(event) {
+        const id = nanoid()
+        const date = new Date().toISOString()
+        setAddCreditFormElements(prevAddCreditFormElements => ({
+            ...prevAddCreditFormElements,
+            [event.target.name] : event.target.value,
+            id,
+            date
+        }))
+    }
+
+    const addCreditHandler = (event) => {
+        event.preventDefault()
+        setCredits(prevCredits => {
+            return [addCreditFormElements, ...prevCredits]
+        })
+        props.increaseBalance(addCreditFormElements.amount)
+    }
+
     function creditViewHandler() {
         setViewCredits(prevViewCredits => !prevViewCredits)
     }
-
     function balanceViewHandler() {
         setViewAccountBalance(prevViewBalance => !prevViewBalance)
     }
 
     return (
+
         <div className="debitsPage">
             <header className="debitsHeader">
                 <h1>CREDITS</h1>
-                <Link to="/ttp-bankOfReact-assn9" className="returnHome">Click here to return to your homepage</Link>
-                <div className="toggleButtons">
-                    <button onClick={creditViewHandler}>{viewCredits ? "Hide Credits" : "Show Credits"}</button>
-                    <button onClick={balanceViewHandler}>{viewAccountBalance ? "Hide Balance" : "Show Balance"}</button>
+                <div className="debitButtons">
+                    <Link to="/ttp-bankOfReact-assn9" className="returnHome">Click here to return to your homepage</Link>
+                    <div className="toggleButtons">
+                        <button onClick={creditViewHandler}>{viewCredits ? "Hide Credits" : "Show Credits"}</button>
+                        <button onClick={balanceViewHandler}>{viewAccountBalance ? "Hide Balance" : "Show Balance"}</button>
+                    </div>
+
+                    <form className="addDebitForm" onSubmit={addCreditHandler}>
+                        <input
+                            placeholder="Credit Description"
+                            name="description"
+                            value={addCreditFormElements.description}
+                            onChange={changeHandler}
+                        />
+                        <input
+                            placeholder="Credit Amount"
+                            name="amount"
+                            value={addCreditFormElements.amount}
+                            onChange={changeHandler}
+                        />
+                        <button type="submit">Add Credit</button>
+                    </form>
                 </div>
             </header>
-
 
             <main>
                 {viewAccountBalance && <AccountBalance accountBalance={props.accountBalance} />}

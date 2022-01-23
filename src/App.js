@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './components/Home'
 import UserProfile from './components/UserProfile'
 import LogIn from './components/LogIn'
@@ -14,6 +14,7 @@ export default function App( props ) {
     } )
 
     const increaseBalance = (credit) => {
+        credit = Number.parseInt(credit)
         setAccountBalance(prevAccountBalance => {
             return (prevAccountBalance + credit)
         })

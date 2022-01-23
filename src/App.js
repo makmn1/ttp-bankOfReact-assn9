@@ -23,7 +23,7 @@ export default function App( props ) {
                 <Route exact path="/ttp-bankOfReact-assn9" element={<Home accountBalance={accountBalance} />} />
                 <Route exact path="/userProfile" element={<UserProfile userName={currentUser.userName} memberSince={currentUser.memberSince} />} />
                 <Route exact path="/login" element={<LogIn user={currentUser} mockLogIn={mockLogIn} />} />
-                <Route exact path="/debits" element={<Debits />} />
+                <Route exact path="/debits" element={<Debits accountBalance={accountBalance} />} />
             </Routes>
         </BrowserRouter>
     );

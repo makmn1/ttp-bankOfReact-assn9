@@ -1,9 +1,11 @@
 import React from "react"
 import { Link } from "react-router-dom"
+import AccountBalance from "./AccountBalance";
 
-export default function Debits() {
+export default function Debits(props) {
 
     const [viewDebits, setViewDebits] = React.useState(false)
+    const [viewAccountBalance, setViewAccountBalance] = React.useState(false)
     const [debits, setDebits] = React.useState([])
 
     React.useEffect(function() {
@@ -32,20 +34,26 @@ export default function Debits() {
     function debitViewHandler() {
         setViewDebits(prevViewDebits => !prevViewDebits)
     }
+    function balanceViewHandler() {
+        setViewAccountBalance(prevViewBalance => !prevViewBalance)
+    }
 
     return (
 
         <div className="debitsPage">
             <header className="debitsHeader">
                 <h1>DEBITS</h1>
-                <button onClick={debitViewHandler}>{viewDebits ? "Hide Debits" : "Show Debits"}</button>
+                <div className="debitButtons">
+                    <button onClick={debitViewHandler}>{viewDebits ? "Hide Debits" : "Show Debits"}</button>
+                    <button onClick={balanceViewHandler}>{viewAccountBalance ? "Hide Balance" : "Show Balance"}</button>
+                </div>
             </header>
             <main>
+                {viewAccountBalance && <AccountBalance accountBalance={props.accountBalance} />}
                 {viewDebits && <h2 className="debitsTitle">Recent Transactions</h2> }
                 {viewDebits && debitElements}
-                <Link to="/ttp-bankOfReact-assn9">Back to Home</Link>
+                <Link to="/ttp-bankOfReact-assn9" className="returnHome">Click here to return to your homepage</Link>
             </main>
-
         </div>
     )
 

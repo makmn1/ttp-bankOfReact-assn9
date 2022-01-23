@@ -11,17 +11,8 @@ export default function Debits(props) {
         description: "",
         amount: ""
     })
-    const [debits, setDebits] = React.useState([])
 
-    React.useEffect(function() {
-        fetch("https://moj-api.herokuapp.com/debits")
-            .then(response => response.json())
-            .then(data => setDebits(data))
-            .catch(error => console.log(error))
-
-    }, [])
-
-    const debitElements = debits.map(debit => {
+    const debitElements = props.debits.map(debit => {
 
         const day = debit.date.substring(8, 10)
         const month = debit.date.substring(5, 7)
@@ -49,7 +40,7 @@ export default function Debits(props) {
 
     const addDebitHandler = (event) => {
         event.preventDefault()
-        setDebits(prevDebits => {
+        props.setDebits(prevDebits => {
             return [addDebitFormElements, ...prevDebits]
         })
         props.deductBalance(addDebitFormElements.amount)

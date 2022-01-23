@@ -11,17 +11,8 @@ export default function Credits(props) {
         description: "",
         amount: ""
     })
-    const [credits, setCredits] = React.useState([])
 
-    React.useEffect(function() {
-        fetch("https://moj-api.herokuapp.com/credits")
-            .then(response => response.json())
-            .then(data => setCredits(data))
-            .catch(error => console.log(error))
-
-    }, [])
-
-    const creditElements = credits.map(credit => {
+    const creditElements = props.credits.map(credit => {
 
         const day = credit.date.substring(8, 10)
         const month = credit.date.substring(5, 7)
@@ -49,7 +40,7 @@ export default function Credits(props) {
 
     const addCreditHandler = (event) => {
         event.preventDefault()
-        setCredits(prevCredits => {
+        props.setCredits(prevCredits => {
             return [addCreditFormElements, ...prevCredits]
         })
         props.increaseBalance(addCreditFormElements.amount)

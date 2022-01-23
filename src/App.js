@@ -12,6 +12,8 @@ export default function App( props ) {
         userName: 'Bob Loblaw',
         memberSince: '08/23/99',
     } )
+    const [credits, setCredits] = React.useState([])
+    const [debits, setDebits] = React.useState([])
 
     const increaseBalance = (credit) => {
         credit = Number.parseInt(credit)
@@ -32,14 +34,28 @@ export default function App( props ) {
         console.log(currentUser)
     }
 
+    React.useEffect(function() {
+
+        fetch("https://moj-api.herokuapp.com/debits")
+            .then(response => response.json())
+            .then(data => setDebits(data))
+            .catch(error => console.log(error))
+
+        fetch("https://moj-api.herokuapp.com/credits")
+            .then(response => response.json())
+            .then(data => setCredits(data))
+            .catch(error => console.log(error))
+
+    }, [])
+
     return (
         <BrowserRouter>
             <Routes>
                 <Route exact path="/ttp-bankOfReact-assn9" element={<Home accountBalance={accountBalance} />} />
                 <Route exact path="/userProfile" element={<UserProfile userName={currentUser.userName} memberSince={currentUser.memberSince} />} />
                 <Route exact path="/login" element={<LogIn user={currentUser} mockLogIn={mockLogIn} />} />
-                <Route exact path="/debits" element={<Debits accountBalance={accountBalance} deductBalance={deductBalance} />} />
-                <Route exact path="/credits" element={<Credits accountBalance={accountBalance} increaseBalance={increaseBalance} />} />
+                <Route exact path="/debits" element={<Debits accountBalance={accountBalance} deductBalance={deductBalance} debits={debits} setDebits={setDebits} />} />
+                <Route exact path="/credits" element={<Credits accountBalance={accountBalance} increaseBalance={increaseBalance} credits={credits} setCredits={setCredits}/>} />
             </Routes>
         </BrowserRouter>
     );

@@ -9,7 +9,7 @@ export default function App( props ) {
 
     const [accountBalance, setAccountBalance] = React.useState( 500 )
     const [currentUser, setCurrentUser] = React.useState( {
-        userName: 'bob_loblaw',
+        userName: 'Bob Loblaw',
         memberSince: '08/23/99',
     } )
 
